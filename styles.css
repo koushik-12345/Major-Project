@@ -1,0 +1,39 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-image: url('Screenshot 2024-01-08 at 6.42.53 PM.png');
+    background-size: cover;
+    background-position: center;
+    color: #d10707;
+    text-align: center;
+}
+
+#login-container {
+    margin-top: 50px;
+    display: none;
+}
+
+#upload-container {
+    display: none;
+}
+
+#about-container {
+    display: none;
+}
+
+#home-button, #about-button, #login-button, #forgot-password {
+    background-color: #0ccf5a;
+    color: #fff;
+    padding: 10px;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    margin-top: 10px;
+    margin-right: 10px;
+}
+
+#about-container p {
+    color: #fff;
+}

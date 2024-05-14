@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Captioning</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1><b>A NOVEL SVM BASED DECODER FOR IMAGE CAPTIONING REMOTE SENSING</b></h1>
+    
+    <button id="home-button" onclick="showHome()">Home</button>
+    <button id="about-button" onclick="showAbout()">About</button>
+    <button id="upload-button" onclick="showUpload()">Upload</button>
+
+    <div id="home-container">
+        <p>Welcome to the Image Captioning Project</p>
+        <p>A novel SVM- based decoder for remote sensing image captioning</p>
+    </div>
+
+    <div id="about-container" style="display: none;">
+        <h1>Project Information:</h1>
+        <p>Most remote sensing image captioning models rely on CNN-RNN frameworks.
+            RNN-based frameworks need a large dataset and significant computational resources.
+            This article introduces a novel decoder using Support Vector Machines (SVM) instead of RNNs.
+            SVM-based decoder is efficient, especially with limited training data.
+            Experiments on four datasets confirm its ability to produce meaningful image descriptions.
+            It offers faster training and inference times compared to other models.</p>
+    </div>
+
+    <div id="upload-container" style="display: none;">
+        <input type="file" id="image-input" accept="image/*">
+        <button id="generate-caption-button" onclick="generateCaption()">Generate Caption</button>
+        <div id="image-preview"></div>
+        <div id="output-container" style="display: none;">
+            <h2>Image Caption:</h2>
+            <ul id="caption-list"></ul>
+        </div>
+    </div>
+
+    <script>
+        function generateCaption() {
+            var fileInput = document.getElementById('image-input');
+            var file = fileInput.files[0];
+            var formData = new FormData();
+            formData.append('image', file);
+
+            fetch('/generate_caption', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.hasOwnProperty('error')) {
+                    alert(data.error);
+                } else {
+                    var captionList = document.getElementById('caption-list');
+                    captionList.innerHTML = '';
+                    data.captions.forEach(caption => {
+                        var listItem = document.createElement('li');
+                        listItem.textContent = caption;
+                        captionList.appendChild(listItem);
+                    });
+                    document.getElementById('output-container').style.display = 'block';
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+    </script>
+</body>
+</html>
